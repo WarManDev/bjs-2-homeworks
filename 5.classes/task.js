@@ -84,21 +84,20 @@ class Library {
         for(let i = 0; i < this.books.length; i++) {
             if(this.books[i].hasOwnProperty(type) === true && this.books[i][type] === value) {
                 return this.books[i];
-            } else {
-                return null;
             }
         }
+        return null;
     }
 
     giveBookByName(bookName) {
+        // debugger;
         for(let i = 0; i < this.books.length; i++) {
             if(this.books[i].name === bookName) {
-                delete this.books[i];
-                return this.books[i];
-            } else {
-                return null;
+                let cutBook = this.books.splice([i], 1);
+                return cutBook[0];
             }
         }
+        return null;
     }
 }
 
@@ -114,6 +113,7 @@ let myBook = new DetectiveBook(
 library.addBook(myBook);
 console.log(library.findBookBy('author', 'Федор Достоевский').name);
 console.log(library.giveBookByName('Преступление и наказание'));
+console.log(library.books);
 myBook.state = 25;
 myBook.fix();
 console.log(myBook.state);
@@ -164,7 +164,7 @@ class Student {
             return 'Несуществующий предмет';
         }
         avgMark = sum / this.marks[desiredSubj].schoolMarks.length;
-        return `Средний балл по предмету ${school} ${avgMark.toFixed(1)}`;
+        return Math.floor(avgMark);
     }
 
     getAverage() {
@@ -177,7 +177,7 @@ class Student {
             }
         }
         let avgAllMark = sumAll / count;
-        return `Средний балл по всем предметам ${avgAllMark.toFixed(1)}`;
+        return Number(avgAllMark.toFixed(1));
     }
 
     exclude(report) {
